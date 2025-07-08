@@ -43,7 +43,7 @@ def lambda_handler(event, context):
             composite_device_id = f"device#{device_id}"
             timestamp = f"ts#{reading['timestamp']}_{reading['type']}"
 
-            rx_table.put_item(Item={
+            TABLE_NAME.put_item(Item={
                 'device_id': composite_device_id,
                 'timestamp': timestamp,
                 'organization_id': org_id,
