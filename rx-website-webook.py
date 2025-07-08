@@ -4,7 +4,7 @@ from decimal import Decimal
 from datetime import datetime, timezone
 
 dynamodb = boto3.resource('dynamodb')
-rx_table = dynamodb.Table('rx-website-demo')
+TABLE_NAME = dynamodb.Table('TABLE_NAME')
 
 def lambda_handler(event, context):
     print("=== START ===")
