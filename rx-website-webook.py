@@ -13,7 +13,7 @@ def lambda_handler(event, context):
 
     try:
         if not event.get("body"):
-            print("⚠️ No body field in event.")
+            print("No body field in event.")
             return {
                 'statusCode': 400,
                 'body': json.dumps({'error': 'Missing body in request'})
@@ -60,7 +60,7 @@ def lambda_handler(event, context):
         }
 
     except Exception as e:
-        print("❌ Exception caught:", str(e))
+        print("Exception caught:", str(e))
         return {
             'statusCode': 500,
             'body': json.dumps({'error': str(e)})
