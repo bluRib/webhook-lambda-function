@@ -1,46 +1,72 @@
-# Webhook Lambda Function
+# AWS Lambda Functions
 
-This AWS Lambda function receives webhook data from the myDevices platform and writes the parsed payload into a DynamoDB table. It enables real-time ingestion and storage of IoT sensor data for monitoring and analysis.
+This repository contains a collection of AWS Lambda functions designed to handle various serverless tasks. Each function is implemented in Python and leverages AWS services such as DynamoDB, API Gateway, and more.
 
-## Features
+## Repository Structure
 
-- Handles incoming HTTP POST requests from myDevices webhooks
-- Extracts relevant sensor data (temperature, humidity, probe readings, battery, etc.)
-- Writes structured data to an Amazon DynamoDB table
-- Logs raw events for debugging and auditing
+The repository is organized as follows:
 
-## Technologies Used
+aws-lambda-functions/
+│
+├── function_name_1/
+│ ├── function.py
+│ ├── requirements.txt
+│ └── README.md
+│
+├── function_name_2/
+│ ├── function.py
+│ ├── requirements.txt
+│ └── README.md
+│
+└── main/
+├── fetch_device_readings.py
+├── requirements.txt
+└── README.md
 
-- AWS Lambda
-- Amazon DynamoDB
-- Python 3.x
-- Boto3 (AWS SDK for Python)
-- AWS API Gateway (for webhook integration)
 
-## Deployment
+Each folder contains the code for a specific Lambda function, along with its dependencies and documentation.
 
-1. Create a Lambda function in the AWS Console or via CLI
-2. Attach permissions for DynamoDB (e.g., `PutItem` on your table)
-3. Deploy the function code
-4. Set up an API Gateway endpoint to trigger this function
-5. Point your myDevices webhook to the API Gateway endpoint
+## Current Functions
 
-## Environment Variables
+### Fetch Device Readings
+- **File:** `fetch_device_readings.py`
+- **Description:** This function retrieves the latest sensor readings for a specific device from a DynamoDB table. It processes API Gateway events, extracts the `device_id` from query parameters, and queries the table to fetch up to 50 of the most recent records. The function consolidates the data to return the latest reading for each sensor type, along with metadata such as the unit, timestamp, and device name.
 
-Make sure to set the following in your Lambda environment configuration:
+### Additional Functions
+Additional Lambda functions will be added to this repository over time. Each function will include its own documentation and usage instructions.
 
-- `AWS_REGION` – AWS region where your DynamoDB table resides
-- `TABLE_NAME` – Name of the DynamoDB table
+## Prerequisites
 
-## Example Payload
+To use the functions in this repository, ensure you have the following:
+- Python 3.8 or later
+- AWS CLI configured with appropriate permissions
+- boto3 library installed for AWS service integration
 
-```json
-{
-  "name": "Temperature Sensor",
-  "device_type": "LHT65N",
-  "sensor_use": "Fridge",
-  "temperature": 4.2,
-  "humidity": 55,
-  "battery": 100,
-  "timestamp": "2025-07-07T14:32:00Z"
-}
+## Setup and Deployment
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/bluRib/aws-lambda-functions.git
+   cd aws-lambda-functions
+Navigate to the desired function directory:
+bash
+Copy Code
+cd main
+Install dependencies:
+bash
+Copy Code
+pip install -r requirements.txt
+Deploy the function using AWS CLI or your preferred deployment tool. For example:
+bash
+Copy Code
+aws lambda create-function \
+    --function-name fetchDeviceReadings \
+    --runtime python3.8 \
+    --role <execution-role-arn> \
+    --handler fetch_device_readings.lambda_handler \
+    --zip-file fileb://function.zip
+Contributing
+Contributions are welcome. If you would like to add a new function or improve an existing one, please submit a pull request. Ensure your code follows the repository's structure and includes proper documentation.
+
+License
+This repository is licensed under the MIT License. See the LICENSE file for more details.
