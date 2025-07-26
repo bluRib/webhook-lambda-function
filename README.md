@@ -1,10 +1,10 @@
-# 🚀 AWS Lambda Functions
+# AWS Lambda Functions
 
 This repository contains a collection of **AWS Lambda functions** written in **Python**, designed to perform a variety of serverless tasks. These functions interact with AWS services such as **DynamoDB**, **API Gateway**, and more.
 
 ---
 
-## 📁 Repository Structure
+## Repository Structure
 
 ```
 aws-lambda-functions/
@@ -26,15 +26,15 @@ aws-lambda-functions/
 ```
 
 Each subdirectory represents an **individual Lambda function**, containing:
-- ✅ Source code (`function.py`)
-- 📦 Dependencies (`requirements.txt`)
-- 📘 Documentation (`README.md`)
+- Source code (`function.py`)
+- Dependencies (`requirements.txt`)
+- Documentation (`README.md`)
 
 ---
 
-## ⚙️ Current Functions
+## ⚙Current Functions
 
-### 🔍 Fetch Device Readings
+### Fetch Device Readings
 
 **Purpose**: Retrieves the latest sensor readings for a specific device from a DynamoDB table.
 
@@ -58,13 +58,13 @@ def lambda_handler(event, context):
 
 ---
 
-## 📦 Prerequisites
+## Prerequisites
 
 Before running or deploying any function, ensure the following are installed/configured:
 
-- 🐍 Python `3.8+`
-- ☁️ AWS CLI (configured with proper IAM permissions)
-- 📚 `boto3` installed for AWS integration:
+- Python `3.8+`
+- AWS CLI (configured with proper IAM permissions)
+- `boto3` installed for AWS integration:
 
 ```bash
 pip install boto3
@@ -72,7 +72,7 @@ pip install boto3
 
 ---
 
-## 🛠️ Setup & Deployment
+## Setup & Deployment
 
 Follow these steps to install dependencies and deploy a Lambda function:
 
@@ -109,7 +109,7 @@ aws lambda create-function \
 
 ---
 
-## ➕ Adding New Functions
+## Adding New Functions
 
 Each new function should:
 - Be placed in its own subdirectory
@@ -122,7 +122,7 @@ Use existing functions as templates!
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
 Contributions are **welcome and appreciated**!
 
@@ -138,7 +138,7 @@ Ensure that:
 
 ---
 
-## 📄 License
+## License
 
 Licensed under the **MIT License**.  
 See [`LICENSE`](./LICENSE) for full details.
