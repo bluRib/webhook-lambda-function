@@ -1,11 +1,15 @@
-AWS Lambda Functions
+import { Callout } from '@components/Callout'
+import { CodeBlock } from '@components/CodeBlock'
 
-This repository contains a collection of AWS Lambda functions designed to handle various serverless tasks. Each function is implemented in Python and leverages AWS services such as DynamoDB, API Gateway, and more.
+# 🚀 AWS Lambda Functions
 
-Repository Structure
+This repository contains a collection of **AWS Lambda functions** written in **Python**, designed to perform a variety of serverless tasks. These functions interact with AWS services such as **DynamoDB**, **API Gateway**, and more.
 
-The repository is organized as follows:
+---
 
+## 📁 Repository Structure
+
+```text
 aws-lambda-functions/
 │
 ├── function_name_1/
@@ -23,53 +27,50 @@ aws-lambda-functions/
     ├── requirements.txt
     └── README.md
 
+Each subdirectory represents an **individual Lambda function**, containing:
+- ✅ Source code (`function.py`)
+- 📦 Dependencies (`requirements.txt`)
+- 📘 Documentation (`README.md`)
 
-Each folder contains the code for a specific Lambda function, along with its dependencies and documentation.
+---
 
-Current Functions
-Fetch Device Readings
+## ⚙️ Current Functions
 
-File: fetch_device_readings.py
+### 🔍 Fetch Device Readings
 
-Description: This function retrieves the latest sensor readings for a specific device from a DynamoDB table. It processes API Gateway events, extracts the device_id from query parameters, and queries the table to fetch up to 50 of the most recent records. The function consolidates the data to return the latest reading for each sensor type, along with metadata such as the unit, timestamp, and device name.
+<Callout type="info" title="Purpose">
+Retrieves the latest sensor readings for a specific device from a DynamoDB table.
+</Callout>
 
-Additional Functions
+- **File:** `main/fetch_device_readings.py`
+- **Input:** API Gateway event with a `device_id` in query parameters
+- **Output:** JSON containing:
+  - Most recent readings per sensor type
+  - Associated metadata (unit, timestamp, device name)
 
-Additional Lambda functions will be added to this repository over time. Each function will include its own documentation and usage instructions.
+<CodeBlock language="python">
+{`
+def lambda_handler(event, context):
+    # Extract device_id
+    device_id = event["queryStringParameters"].get("device_id")
+    # Query DynamoDB and consolidate results
+    ...
+    return {
+        "statusCode": 200,
+        "body": json.dumps(result)
+    }
+`}
+</CodeBlock>
 
-Prerequisites
+---
 
-To use the functions in this repository, ensure you have the following:
+## 📦 Prerequisites
 
-Python 3.8 or later
+Before running or deploying any function, ensure the following are installed/configured:
 
-AWS CLI configured with appropriate permissions
+- 🐍 Python `3.8+`
+- ☁️ AWS CLI (configured with proper IAM permissions)
+- 📚 `boto3` installed for AWS integration:
 
-boto3 library installed for AWS service integration
-
-Setup and Deployment
-Clone the repository:
-git clone https://github.com/bluRib/aws-lambda-functions.git
-cd aws-lambda-functions
-
-Navigate to the desired function directory:
-cd main
-
-Install dependencies:
-pip install -r requirements.txt
-
-Deploy the function using AWS CLI or your preferred deployment tool. For example:
-aws lambda create-function \
-    --function-name fetchDeviceReadings \
-    --runtime python3.8 \
-    --role <execution-role-arn> \
-    --handler fetch_device_readings.lambda_handler \
-    --zip-file fileb://function.zip
-
-Contributing
-
-Contributions are welcome. If you would like to add a new function or improve an existing one, please submit a pull request. Ensure your code follows the repository's structure and includes proper documentation.
-
-License
-
-This repository is licensed under the MIT License. See the LICENSE file for more details.
+```bash
+pip install boto3
