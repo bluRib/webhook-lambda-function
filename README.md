@@ -1,6 +1,3 @@
-import { Callout } from '@components/Callout'
-import { CodeBlock } from '@components/CodeBlock'
-
 # 🚀 AWS Lambda Functions
 
 This repository contains a collection of **AWS Lambda functions** written in **Python**, designed to perform a variety of serverless tasks. These functions interact with AWS services such as **DynamoDB**, **API Gateway**, and more.
@@ -9,7 +6,7 @@ This repository contains a collection of **AWS Lambda functions** written in **P
 
 ## 📁 Repository Structure
 
-```text
+```
 aws-lambda-functions/
 │
 ├── function_name_1/
@@ -26,6 +23,7 @@ aws-lambda-functions/
     ├── fetch_device_readings.py
     ├── requirements.txt
     └── README.md
+```
 
 Each subdirectory represents an **individual Lambda function**, containing:
 - ✅ Source code (`function.py`)
@@ -38,9 +36,7 @@ Each subdirectory represents an **individual Lambda function**, containing:
 
 ### 🔍 Fetch Device Readings
 
-<Callout type="info" title="Purpose">
-Retrieves the latest sensor readings for a specific device from a DynamoDB table.
-</Callout>
+**Purpose**: Retrieves the latest sensor readings for a specific device from a DynamoDB table.
 
 - **File:** `main/fetch_device_readings.py`
 - **Input:** API Gateway event with a `device_id` in query parameters
@@ -48,8 +44,7 @@ Retrieves the latest sensor readings for a specific device from a DynamoDB table
   - Most recent readings per sensor type
   - Associated metadata (unit, timestamp, device name)
 
-<CodeBlock language="python">
-{`
+```python
 def lambda_handler(event, context):
     # Extract device_id
     device_id = event["queryStringParameters"].get("device_id")
@@ -59,8 +54,7 @@ def lambda_handler(event, context):
         "statusCode": 200,
         "body": json.dumps(result)
     }
-`}
-</CodeBlock>
+```
 
 ---
 
@@ -74,3 +68,77 @@ Before running or deploying any function, ensure the following are installed/con
 
 ```bash
 pip install boto3
+```
+
+---
+
+## 🛠️ Setup & Deployment
+
+Follow these steps to install dependencies and deploy a Lambda function:
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/bluRib/aws-lambda-functions.git
+cd aws-lambda-functions
+```
+
+### 2. Navigate to a Function Directory
+
+```bash
+cd main
+```
+
+### 3. Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+### 4. Deploy the Function
+
+```bash
+zip function.zip fetch_device_readings.py
+aws lambda create-function \
+  --function-name fetchDeviceReadings \
+  --runtime python3.8 \
+  --role <execution-role-arn> \
+  --handler fetch_device_readings.lambda_handler \
+  --zip-file fileb://function.zip
+```
+
+---
+
+## ➕ Adding New Functions
+
+Each new function should:
+- Be placed in its own subdirectory
+- Contain:
+  - `function.py` (logic)
+  - `requirements.txt` (dependencies)
+  - `README.md` (usage)
+
+Use existing functions as templates!
+
+---
+
+## 🤝 Contributing
+
+Contributions are **welcome and appreciated**!
+
+If you’d like to add a new Lambda function or improve an existing one:
+1. Fork this repository
+2. Create a feature branch
+3. Submit a pull request
+
+Ensure that:
+- Your code matches the existing structure
+- Includes documentation
+- Follows Pythonic conventions
+
+---
+
+## 📄 License
+
+Licensed under the **MIT License**.  
+See [`LICENSE`](./LICENSE) for full details.
