@@ -32,7 +32,7 @@ Each subdirectory represents an **individual Lambda function**, containing:
 
 ---
 
-## ⚙Current Functions
+## Current Functions
 
 ### Fetch Device Readings
 
